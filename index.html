@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="./assets/style.css">
+    <title>Movie-Giphy</title>
+</head>
+<body>
+    <header></header>
+
+    <!-- This is the form for the search bar -->
+    <form></form>
+
+    <!-- This div holds the content of the information (Title, Summary and Giphy) -->
+    <div id="movie-content">
+
+        <!-- this div holds the movie-info (The movie title and summary) -->
+        <div id="movie-info">
+            <h2>Movie Title</h2>
+            <p>Movie Summary</p>
+        </div>
+
+        <!-- This div holds the giphy image (this might have to be a img element) 
+        Probably still a good idea to have the image within it's own div-->
+        <div id="giphy-image"></div>
+    </div>
+
+    <!-- This div has the search history. It includes a button to reset the local storage.-->
+    <div id="search-history">
+        <h2>Search History</h2>
+        <div id="clear-history"></div>
+        <!-- Search History Buttons will be rendered here with javascript -->
+    </div>
+    
+    <script src="./assets/script.js"></script>
+</body>
+</html>
