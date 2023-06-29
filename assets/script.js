@@ -19,8 +19,6 @@ var historyContainer = document.getElementById("history-container");
 var giphyAPIKey = "ggIqSnV3EyhXc41xShTfcOFcFk9uJlqx";
 var omdbAPIKey = "347dfc0d&i=tt3896198";
 
-
-
 var requestGiphyUrl =
   "https://api.giphy.com/v1/gifs/search?q=test&api_key=ggIqSnV3EyhXc41xShTfcOFcFk9uJlqx";
 //the "&i=" is the IMDB parameter, with "tt3896198" being entered in, this searchs IMDB's movie database
@@ -60,30 +58,28 @@ fetch(requestMovieUrl)
 
 //TODO: Function to render the search history buttons
 
-function searchHistoryList (movieName){
-    
+function searchHistoryList(movieName) {
+  // creates search entry with movie name
+  var searchHistoryEntry = $("<p>");
+  searchHistoryEntry.addClass("movie-list");
+  searchHistoryEntry.text(movieName);
 
-    // creates search entry with movie name
-    var searchHistoryEntry = $("<p>");
-    searchHistoryEntry.addClass("movie-list");
-    searchHistoryEntry.text(movieName);
+  // creates a container to hold search entry
+  var entryStorageContainer = $("<div>");
+  entryStorageContainer.addClass("previous-search-container");
 
-    // creates a container to hold search entry 
-    var entryStorageContainer = $("<div>");
-    entryStorageContainer.addClass("previous-search-container");
+  // appends search entry to previous search container
+  entryStorageContainer.append(searchHistoryEntry);
 
-    // appends search entry to previous search container
-    entryStorageContainer.append(searchHistoryEntry);
+  // append entry container to search history container
+  var searchHistoryEl = $("#search-history-container");
+  searchHistoryEl.append(searchEntryContainer);
 
-    // append entry container to search history container
-    var searchHistoryEl = $("#search-history-container");
-    searchHistoryEl.append(searchEntryContainer);
-
-    if (savedMovieNames.length > 0){
-        // update savedSearches array with previously saved searches
-        var previousSavedMovieNames = localStorage.getItem("savedMovieNames");
-        savedMovieNames = JSON.parse(previousSavedMovieNames);
-    }
+  if (savedMovieNames.length > 0) {
+    // update savedSearches array with previously saved searches
+    var previousSavedMovieNames = localStorage.getItem("savedMovieNames");
+    savedMovieNames = JSON.parse(previousSavedMovieNames);
+  }
 }
 // this adds movie name to array of saved movie-names
 savedMovieNames.push(movieName);
@@ -100,20 +96,20 @@ function appendMovieInfo(title, plot) {
   movieSummary.textContent = plot;
 }
 
-function appendGIF(gif1, gif2, gif3, gif4){
+function appendGIF(gif1, gif2, gif3, gif4) {
   var giphy1 = document.createElement("img");
-  giphy1.setAttribute(src = gif1);
+  giphy1.setAttribute((src = gif1));
   giphyImage.appendChild(giphy1);
 
   var giphy2 = document.createElement("img");
-  giphy2.setAttribute(src = gif2);
+  giphy2.setAttribute((src = gif2));
   giphyImage.appendChild(giphy2);
 
   var giphy3 = document.createElement("img");
-  giphy3.setAttribute(src = gif3);
+  giphy3.setAttribute((src = gif3));
   giphyImage.appendChild(giphy3);
 
   var giphy4 = document.createElement("img");
-  giphy4.setAttribute(src = gif4);
+  giphy4.setAttribute((src = gif4));
   giphyImage.appendChild(giphy4);
 }
