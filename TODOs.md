@@ -8,7 +8,7 @@ A web application that searches a movie for its summary/synopis/plot, and return
 
 As a movie-goer / movie-fan,
 
-I want to find the summary of a movie and a matching gif image
+I want to find the summary of a movie and matching gif images
 
 So that I can quickly learn about the movie and have an image of it in mind
 
