@@ -20,13 +20,37 @@ var giphyAPIKey = "ggIqSnV3EyhXc41xShTfcOFcFk9uJlqx";
 var omdbAPIKey = "347dfc0d&i=tt3896198";
 
 var requestGiphyUrl =
-  "https://api.giphy.com/v1/gifs/search?q=test&api_key=ggIqSnV3EyhXc41xShTfcOFcFk9uJlqx";
-//the "&i=" is the IMDB parameter, with "tt3896198" being entered in, this searchs IMDB's movie database
-var requestMovieUrl = "http://www.omdbapi.com/?&apikey=347dfc0d&i=tt3896198";
+  "https://api.giphy.com/v1/gifs/search?api_key=ggIqSnV3EyhXc41xShTfcOFcFk9uJlqx&q=";
+//the "&t=" is the IMDB parameter, with "tt3896198" being entered in, this searchs IMDB's movie database
+//var requestMovieUrl = "http://www.omdbapi.com/?&apikey=347dfc0d&i=tt3896198";
 //uncomment the below requestMovieUrl to use with your own search parameters
-//var requestMovieUrl = "http://www.omdbapi.com/?&apikey=347dfc0d&i=";
+var requestMovieUrl = "http://www.omdbapi.com/?&apikey=347dfc0d&t=";
 
 //user search parameters, uncomment these as you wish
+var userInput = document.querySelector("#movieInput");
+var searchBtn = document.querySelector("#searchMovieBtn");
+
+function getMovieData() {
+  let searchInput = userInput.value;
+  //console.log(userInput.value);
+  fetch(requestGiphyUrl + searchInput)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+    });
+  fetch(requestMovieUrl + searchInput)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+    });
+}
+
+//this fetch is for the Giphy API
+searchBtn.addEventListener("click", getMovieData);
 //var userGiphyInput = "";
 //var userMovieInput = "";
 var savedMovieNames = [];
