@@ -17,20 +17,22 @@ var historyContainer = document.getElementById("history-container");
 */
 
 var giphyAPIKey = "ggIqSnV3EyhXc41xShTfcOFcFk9uJlqx";
-var omdbAPIKey = "347dfc0d&i=tt3896198";
+var omdbAPIKey = "347dfc0d";
 
 var requestGiphyUrl =
-  "https://api.giphy.com/v1/gifs/search?api_key=ggIqSnV3EyhXc41xShTfcOFcFk9uJlqx&q=";
+  "https://api.giphy.com/v1/gifs/search?api_key=" + giphyAPIKey + "&q=";
 //the "&t=" is the IMDB parameter, with "tt3896198" being entered in, this searchs IMDB's movie database
 //var requestMovieUrl = "http://www.omdbapi.com/?&apikey=347dfc0d&i=tt3896198";
 //uncomment the below requestMovieUrl to use with your own search parameters
-var requestMovieUrl = "http://www.omdbapi.com/?&apikey=347dfc0d&t=";
+var requestMovieUrl = "http://www.omdbapi.com/?plot=full&apikey=" + omdbAPIKey + "&t=";
 
 //user search parameters, uncomment these as you wish
 var userInput = document.querySelector("#movieInput");
 var searchBtn = document.querySelector("#searchMovieBtn");
 
-function getMovieData() {
+function getMovieData(event) {
+  event.preventDefault();
+
   let searchInput = userInput.value;
   //console.log(userInput.value);
   fetch(requestGiphyUrl + searchInput)
@@ -47,6 +49,8 @@ function getMovieData() {
     .then(function (data) {
       console.log(data);
     });
+
+    userInput.value="";
 }
 
 //this fetch is for the Giphy API
@@ -54,23 +58,6 @@ searchBtn.addEventListener("click", getMovieData);
 //var userGiphyInput = "";
 //var userMovieInput = "";
 var savedMovieNames = [];
-//this fetch is for the Giphy API
-fetch(requestGiphyUrl)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
-    console.log(data);
-  });
-
-//this fetch is for the OMDb API
-fetch(requestMovieUrl)
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
-    console.log(data);
-  });
 
 //TODO: Add an eventListener for the "submit" form to get the search paramaters. Should call other functions. Will call both the OMBD function and GIPHY function simultaneously
 
@@ -104,10 +91,10 @@ function searchHistoryList(movieName) {
     var previousSavedMovieNames = localStorage.getItem("savedMovieNames");
     savedMovieNames = JSON.parse(previousSavedMovieNames);
   }
+  // this add movie name to array of saved movie-names
+  savedMovieNames.push(movieName);
+  localStorage.setItem("savedMovieName", JSON.stringify(savedMovieNames));
 }
-// this adds movie name to array of saved movie-names
-savedMovieNames.push(movieName);
-localStorage.setItem("savedMovieName", JSON.stringify(savedMovieNames));
 
 // resets search entry input
 $("#search-input").val("");
