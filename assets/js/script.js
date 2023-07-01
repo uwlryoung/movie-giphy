@@ -50,6 +50,9 @@ function getMovieData(event) {
       console.log(data);
     });
 
+    appendMovieInfo(data.Title, data.Plot);
+    appendGIF(data.data[0].embed_url, data.data[1].embed_url, data.data[2].embed_url, data.data[3].embed_url)
+
     userInput.value="";
 }
 
