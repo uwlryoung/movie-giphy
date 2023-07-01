@@ -43,3 +43,4 @@ https://developers.giphy.com/docs/api/endpoint/#search
 ## Additional Ideas: 
 - Feeling Lucky? (A random search for a movie and giphy)
 - A random movie quote that is called with every refresh of the page
+- Adding a giphy image with actor/actresses in it (use ex. data.actors from the ODMB and set that as search parameter for Giphy)
