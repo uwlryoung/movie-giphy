@@ -7,6 +7,9 @@ var movieTitle = movieInfo.children[0];
 var movieSummary = movieInfo.children[1];
 var clearHistory = document.getElementById("clear-history");
 
+// Issue with the cookies and an attribute called "SameSite"
+// document.cookie = "name=giphy; SameSite=None; Secure";
+
 /* We should actually make one more div in the html here as a parent to the search history buttons
 We should call that in the index.html file: 
 <div id="history-container"></div>
@@ -19,28 +22,26 @@ var historyContainer = document.getElementById("history-container");
 var giphyAPIKey = "ggIqSnV3EyhXc41xShTfcOFcFk9uJlqx";
 var omdbAPIKey = "347dfc0d";
 
-var requestGiphyUrl =
-  "https://api.giphy.com/v1/gifs/search?api_key=" + giphyAPIKey + "&q=";
-//the "&t=" is the IMDB parameter, with "tt3896198" being entered in, this searchs IMDB's movie database
-//var requestMovieUrl = "http://www.omdbapi.com/?&apikey=347dfc0d&i=tt3896198";
-//uncomment the below requestMovieUrl to use with your own search parameters
+var requestGiphyUrl = "https://api.giphy.com/v1/gifs/search?api_key=" + giphyAPIKey + "&q=";
 var requestMovieUrl = "http://www.omdbapi.com/?plot=full&apikey=" + omdbAPIKey + "&t=";
 
-//user search parameters, uncomment these as you wish
 var userInput = document.querySelector("#movieInput");
 var searchBtn = document.querySelector("#searchMovieBtn");
 
 function getMovieData(event) {
   event.preventDefault();
 
+  giphyImage.replaceChildren();
+
   let searchInput = userInput.value;
-  //console.log(userInput.value);
+
   fetch(requestGiphyUrl + searchInput)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
       console.log(data);
+      appendGIF(data.data[0].embed_url, data.data[1].embed_url, data.data[2].embed_url, data.data[3].embed_url);
     });
   fetch(requestMovieUrl + searchInput)
     .then(function (response) {
@@ -48,25 +49,18 @@ function getMovieData(event) {
     })
     .then(function (data) {
       console.log(data);
+      appendMovieInfo(data.Title, data.Plot);
     });
 
-    appendMovieInfo(data.Title, data.Plot);
-    appendGIF(data.data[0].embed_url, data.data[1].embed_url, data.data[2].embed_url, data.data[3].embed_url)
 
     userInput.value="";
 }
 
-//this fetch is for the Giphy API
 searchBtn.addEventListener("click", getMovieData);
-//var userGiphyInput = "";
-//var userMovieInput = "";
+
 var savedMovieNames = [];
 
-//TODO: Add an eventListener for the "submit" form to get the search paramaters. Should call other functions. Will call both the OMBD function and GIPHY function simultaneously
-
-//TODO: Function to fetch the movie data from OMBD
-
-//TODO: Function to fetch the giphy data from GIPHY
+//TODO: Fix the samesite issues with cookies
 
 //TODO: Function to store the local data (just movie names) onto localStorage. This should call the "render buttons" at the end of the function
 
@@ -108,22 +102,26 @@ $("#search-input").val("");
 function appendMovieInfo(title, plot) {
   movieTitle.textContent = title;
   movieSummary.textContent = plot;
+  //TODO: Add the year of the movie to the title page - needs a new HTML element to be put in the html
 }
 
 function appendGIF(gif1, gif2, gif3, gif4) {
-  var giphy1 = document.createElement("img");
-  giphy1.setAttribute((src = gif1));
+  var giphy1 = document.createElement("iframe");
+  giphy1.setAttribute("src", gif1);
+  //TODO: Fix the samesite cookie issue. Possible solutions: 
+  // giphy1.setAttribute("id", "cookie");
+  // giphy1.setAttribute("set-cookie", "none secure")
   giphyImage.appendChild(giphy1);
 
-  var giphy2 = document.createElement("img");
-  giphy2.setAttribute((src = gif2));
+  var giphy2 = document.createElement("iframe");
+  giphy2.setAttribute("src", gif2);
   giphyImage.appendChild(giphy2);
 
-  var giphy3 = document.createElement("img");
-  giphy3.setAttribute((src = gif3));
+  var giphy3 = document.createElement("iframe");
+  giphy3.setAttribute("src", gif3);
   giphyImage.appendChild(giphy3);
 
-  var giphy4 = document.createElement("img");
-  giphy4.setAttribute((src = gif4));
+  var giphy4 = document.createElement("iframe");
+  giphy4.setAttribute("src", gif4);
   giphyImage.appendChild(giphy4);
 }
