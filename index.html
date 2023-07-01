@@ -15,15 +15,15 @@
 
     <!-- This is the form for the search bar -->
     <form>
-      <label id="movie" for="city">Search for a movie</label>
+      <label id="movie" for="movieInput">Search for a movie</label>
       <input
         type="text"
         name="movie"
         id="movieInput"
         placeholder="Enter a movie title"
       />
+      <button id="searchMovieBtn">Search</button>
     </form>
-    <button id="searchMovieBtn">Search</button>
 
     <!-- This div holds the content of the information (Title, Summary and Giphy) -->
     <div id="movie-content">
@@ -44,6 +44,7 @@
       <div id="clear-history"></div>
       <!-- Search History Buttons will be rendered here with javascript -->
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <script src="./assets/js/script.js"></script>
   </body>
