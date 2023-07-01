@@ -1,3 +1,4 @@
+//TEST CHANGE
 //TODO: add variables needed (api-key, selectors for each section). We should either use all jquery or all vanilla javascript (I think maybe vanilla is best for our project)
 var search = document.querySelector("form");
 var movieInfo = document.getElementById("movie-info");
@@ -24,7 +25,8 @@ var requestGiphyUrl =
 //the "&t=" is the IMDB parameter, with "tt3896198" being entered in, this searchs IMDB's movie database
 //var requestMovieUrl = "http://www.omdbapi.com/?&apikey=347dfc0d&i=tt3896198";
 //uncomment the below requestMovieUrl to use with your own search parameters
-var requestMovieUrl = "http://www.omdbapi.com/?plot=full&apikey=" + omdbAPIKey + "&t=";
+var requestMovieUrl =
+  "http://www.omdbapi.com/?plot=full&apikey=" + omdbAPIKey + "&t=";
 
 //user search parameters, uncomment these as you wish
 var userInput = document.querySelector("#movieInput");
@@ -50,10 +52,15 @@ function getMovieData(event) {
       console.log(data);
     });
 
-    appendMovieInfo(data.Title, data.Plot);
-    appendGIF(data.data[0].embed_url, data.data[1].embed_url, data.data[2].embed_url, data.data[3].embed_url)
+  appendMovieInfo(data.Title, data.Plot);
+  appendGIF(
+    data.data[0].embed_url,
+    data.data[1].embed_url,
+    data.data[2].embed_url,
+    data.data[3].embed_url
+  );
 
-    userInput.value="";
+  userInput.value = "";
 }
 
 //this fetch is for the Giphy API
@@ -71,6 +78,8 @@ var savedMovieNames = [];
 //TODO: Function to store the local data (just movie names) onto localStorage. This should call the "render buttons" at the end of the function
 
 //TODO: Function to render the search history buttons
+
+//TEST CHANGE
 
 function searchHistoryList(movieName) {
   // creates search entry with movie name
