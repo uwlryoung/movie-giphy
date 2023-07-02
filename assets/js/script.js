@@ -2,6 +2,7 @@
 var search = document.querySelector("form");
 var movieInfo = document.getElementById("movie-info");
 var giphyImage = document.getElementById("giphy-image");
+var actorImage = document.getElementById("actor-giphy");
 var searchHistory = document.getElementById("search-history");
 var movieTitle = movieInfo.children[0];
 var movieSummary = movieInfo.children[1];
@@ -35,6 +36,7 @@ function getMovieData(event) {
   event.preventDefault();
 
   giphyImage.replaceChildren();
+  actorImage.replaceChildren();
   movieTitle.innerHTML = "";
   movieSummary.innerHTML = "";
 
@@ -47,7 +49,7 @@ function getMovieData(event) {
     .then(function (data) {
       if (data.Response === "False") {
         error = "Movie Title Not Found! Please Enter a Valid Movie Title.";
-        movieInfo.append(error);
+        movieTitle.innerHTML = error;
         return;
       } else {
         fetch(requestGiphyUrl + searchInput)
@@ -66,6 +68,7 @@ function getMovieData(event) {
 
         console.log(data);
         appendMovieInfo(data.Title, data.Plot);
+        appendActorGIF(data.Actors);
       }
 
     });
@@ -146,19 +149,22 @@ function appendGIF(gif1, gif2, gif3, gif4) {
 function appendActorGIF(actors) {
 
   console.log(actors);
+
+  actorArray = actors.split(", ");
+
+  for (i=0; i < actorArray.length; i++){
+    console.log(actorArray[i]);
   
-
-  
-  // var actor1 = document.createElement("iframe");
-  // actor1.setAttribute("src", gif1);
-  // giphyImage.appendChild(actor1);
-
-  // var actor2 = document.createElement("iframe");
-  // actor2.setAttribute("src", gif2);
-  // giphyImage.appendChild(actor2);
-
-  // var actor3 = document.createElement("iframe");
-  // actor3.setAttribute("src", gif3);
-  // giphyImage.appendChild(actor3);
-
+    fetch(requestGiphyUrl + actorArray[i])
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+      var actor = document.createElement("iframe");
+      actor.setAttribute("src", data.data[0].embed_url);
+      actorImage.appendChild(actor);
+      console.log(actorArray[i]);
+    });
+  }
 }
