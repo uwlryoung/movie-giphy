@@ -50,6 +50,7 @@ function getMovieData(event) {
     .then(function (data) {
       console.log(data);
       appendMovieInfo(data.Title, data.Plot);
+      appendActorGIF(data.Actors);
     });
 
 
@@ -124,4 +125,24 @@ function appendGIF(gif1, gif2, gif3, gif4) {
   var giphy4 = document.createElement("iframe");
   giphy4.setAttribute("src", gif4);
   giphyImage.appendChild(giphy4);
+}
+
+function appendActorGIF(actors) {
+
+  console.log(actors);
+  
+
+  
+  // var actor1 = document.createElement("iframe");
+  // actor1.setAttribute("src", gif1);
+  // giphyImage.appendChild(actor1);
+
+  // var actor2 = document.createElement("iframe");
+  // actor2.setAttribute("src", gif2);
+  // giphyImage.appendChild(actor2);
+
+  // var actor3 = document.createElement("iframe");
+  // actor3.setAttribute("src", gif3);
+  // giphyImage.appendChild(actor3);
+
 }
