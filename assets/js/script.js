@@ -2,6 +2,7 @@
 var search = document.querySelector("form");
 var movieInfo = document.getElementById("movie-info");
 var giphyImage = document.getElementById("giphy-image");
+var actorImage = document.getElementById("actor-giphy");
 var searchHistory = document.getElementById("search-history");
 var movieTitle = movieInfo.children[0];
 var movieSummary = movieInfo.children[1];
@@ -35,6 +36,7 @@ function getMovieData(event) {
   event.preventDefault();
 
   giphyImage.replaceChildren();
+  actorImage.replaceChildren();
   movieTitle.innerHTML = "";
   movieSummary.innerHTML = "";
 
@@ -47,7 +49,7 @@ function getMovieData(event) {
     .then(function (data) {
       if (data.Response === "False") {
         error = "Movie Title Not Found! Please Enter a Valid Movie Title.";
-        movieInfo.append(error);
+        movieTitle.innerHTML = error;
         return;
       } else {
         fetch(requestGiphyUrl + searchInput)
@@ -66,7 +68,9 @@ function getMovieData(event) {
 
         console.log(data);
         appendMovieInfo(data.Title, data.Plot);
+        appendActorGIF(data.Actors);
       }
+
     });
 
   userInput.value = "";
@@ -140,4 +144,27 @@ function appendGIF(gif1, gif2, gif3, gif4) {
   var giphy4 = document.createElement("iframe");
   giphy4.setAttribute("src", gif4);
   giphyImage.appendChild(giphy4);
+}
+
+function appendActorGIF(actors) {
+
+  console.log(actors);
+
+  actorArray = actors.split(", ");
+
+  for (i=0; i < actorArray.length; i++){
+    console.log(actorArray[i]);
+  
+    fetch(requestGiphyUrl + actorArray[i])
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+      var actor = document.createElement("iframe");
+      actor.setAttribute("src", data.data[0].embed_url);
+      actorImage.appendChild(actor);
+      console.log(actorArray[i]);
+    });
+  }
 }
