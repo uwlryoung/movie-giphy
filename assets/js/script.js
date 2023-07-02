@@ -28,7 +28,7 @@ var omdbAPIKey = "347dfc0d";
 var requestGiphyUrl =
   "https://api.giphy.com/v1/gifs/search?api_key=" + giphyAPIKey + "&q=";
 var requestMovieUrl =
-  "http://www.omdbapi.com/?plot=full&apikey=" + omdbAPIKey + "&t=";
+  "https://www.omdbapi.com/?plot=full&apikey=" + omdbAPIKey + "&t=";
 
 var userInput = document.querySelector("#movieInput");
 var searchBtn = document.querySelector("#searchMovieBtn");
