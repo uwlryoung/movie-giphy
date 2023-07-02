@@ -6,6 +6,7 @@ var searchHistory = document.getElementById("search-history");
 var movieTitle = movieInfo.children[0];
 var movieSummary = movieInfo.children[1];
 var clearHistory = document.getElementById("clear-history");
+var error = document.createElement("h2");
 
 // Issue with the cookies and an attribute called "SameSite"
 // document.cookie = "name=giphy; SameSite=None; Secure";
@@ -22,8 +23,10 @@ var historyContainer = document.getElementById("history-container");
 var giphyAPIKey = "ggIqSnV3EyhXc41xShTfcOFcFk9uJlqx";
 var omdbAPIKey = "347dfc0d";
 
-var requestGiphyUrl = "https://api.giphy.com/v1/gifs/search?api_key=" + giphyAPIKey + "&q=";
-var requestMovieUrl = "http://www.omdbapi.com/?plot=full&apikey=" + omdbAPIKey + "&t=";
+var requestGiphyUrl =
+  "https://api.giphy.com/v1/gifs/search?api_key=" + giphyAPIKey + "&q=";
+var requestMovieUrl =
+  "http://www.omdbapi.com/?plot=full&apikey=" + omdbAPIKey + "&t=";
 
 var userInput = document.querySelector("#movieInput");
 var searchBtn = document.querySelector("#searchMovieBtn");
@@ -32,28 +35,41 @@ function getMovieData(event) {
   event.preventDefault();
 
   giphyImage.replaceChildren();
+  movieTitle.innerHTML = "";
+  movieSummary.innerHTML = "";
 
   let searchInput = userInput.value;
 
-  fetch(requestGiphyUrl + searchInput)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data);
-      appendGIF(data.data[0].embed_url, data.data[1].embed_url, data.data[2].embed_url, data.data[3].embed_url);
-    });
   fetch(requestMovieUrl + searchInput)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
-      appendMovieInfo(data.Title, data.Plot);
+      if (data.Response === "False") {
+        error = "Movie Title Not Found! Please Enter a Valid Movie Title.";
+        movieInfo.append(error);
+        return;
+      } else {
+        fetch(requestGiphyUrl + searchInput)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            console.log(data);
+            appendGIF(
+              data.data[0].embed_url,
+              data.data[1].embed_url,
+              data.data[2].embed_url,
+              data.data[3].embed_url
+            );
+          });
+
+        console.log(data);
+        appendMovieInfo(data.Title, data.Plot);
+      }
     });
 
-
-    userInput.value="";
+  userInput.value = "";
 }
 
 searchBtn.addEventListener("click", getMovieData);
@@ -108,7 +124,7 @@ function appendMovieInfo(title, plot) {
 function appendGIF(gif1, gif2, gif3, gif4) {
   var giphy1 = document.createElement("iframe");
   giphy1.setAttribute("src", gif1);
-  //TODO: Fix the samesite cookie issue. Possible solutions: 
+  //TODO: Fix the samesite cookie issue. Possible solutions:
   // giphy1.setAttribute("id", "cookie");
   // giphy1.setAttribute("set-cookie", "none secure")
   giphyImage.appendChild(giphy1);
