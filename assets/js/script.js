@@ -1,4 +1,3 @@
-//TEST CHANGE
 //TODO: add variables needed (api-key, selectors for each section). We should either use all jquery or all vanilla javascript (I think maybe vanilla is best for our project)
 var search = document.querySelector("form");
 var movieInfo = document.getElementById("movie-info");
@@ -7,6 +6,7 @@ var searchHistory = document.getElementById("search-history");
 var movieTitle = movieInfo.children[0];
 var movieSummary = movieInfo.children[1];
 var clearHistory = document.getElementById("clear-history");
+var error = document.createElement("h2");
 
 // Issue with the cookies and an attribute called "SameSite"
 // document.cookie = "name=giphy; SameSite=None; Secure";
@@ -35,29 +35,38 @@ function getMovieData(event) {
   event.preventDefault();
 
   giphyImage.replaceChildren();
+  movieTitle.innerHTML = "";
+  movieSummary.innerHTML = "";
 
   let searchInput = userInput.value;
 
-  fetch(requestGiphyUrl + searchInput)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data);
-      appendGIF(
-        data.data[0].embed_url,
-        data.data[1].embed_url,
-        data.data[2].embed_url,
-        data.data[3].embed_url
-      );
-    });
   fetch(requestMovieUrl + searchInput)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
-      appendMovieInfo(data.Title, data.Plot);
+      if (data.Response === "False") {
+        error = "Movie Title Not Found! Please Enter a Valid Movie Title.";
+        movieInfo.append(error);
+        return;
+      } else {
+        fetch(requestGiphyUrl + searchInput)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            console.log(data);
+            appendGIF(
+              data.data[0].embed_url,
+              data.data[1].embed_url,
+              data.data[2].embed_url,
+              data.data[3].embed_url
+            );
+          });
+
+        console.log(data);
+        appendMovieInfo(data.Title, data.Plot);
+      }
     });
 
   userInput.value = "";
@@ -72,8 +81,6 @@ var savedMovieNames = [];
 //TODO: Function to store the local data (just movie names) onto localStorage. This should call the "render buttons" at the end of the function
 
 //TODO: Function to render the search history buttons
-
-//TEST CHANGE
 
 function searchHistoryList(movieName) {
   // creates search entry with movie name
