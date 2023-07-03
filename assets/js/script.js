@@ -37,6 +37,7 @@ function getMovieData(event) {
   event.preventDefault();
 
   giphyImage.replaceChildren();
+  giphyImage2.replaceChildren();
   actorImage.replaceChildren();
   movieTitle.innerHTML = "";
   movieSummary.innerHTML = "";
