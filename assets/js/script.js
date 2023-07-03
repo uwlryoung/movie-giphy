@@ -9,6 +9,7 @@ var movieTitle = movieInfo.children[0];
 var movieSummary = movieInfo.children[1];
 var clearHistory = document.getElementById("clear-history");
 var error = document.createElement("h2");
+var searchHistoryEl = $("#search-history-container");
 
 // Issue with the cookies and an attribute called "SameSite"
 // document.cookie = "name=giphy; SameSite=None; Secure";
@@ -89,11 +90,11 @@ var savedMovieNames = [];
 
 //TODO: Function to render the search history buttons
 
-function searchHistoryList(movieName) {
+function searchHistoryList(userInput) {
   // creates search entry with movie name
   var searchHistoryEntry = $("<p>");
   searchHistoryEntry.addClass("movie-list");
-  searchHistoryEntry.text(movieName);
+  searchHistoryEntry.text(userInput);
 
   // creates a container to hold search entry
   var entryStorageContainer = $("<div>");
@@ -103,7 +104,7 @@ function searchHistoryList(movieName) {
   entryStorageContainer.append(searchHistoryEntry);
 
   // append entry container to search history container
-  var searchHistoryEl = $("#search-history-container");
+  
   searchHistoryEl.append(searchEntryContainer);
 
   if (savedMovieNames.length > 0) {
@@ -111,10 +112,34 @@ function searchHistoryList(movieName) {
     var previousSavedMovieNames = localStorage.getItem("savedMovieNames");
     savedMovieNames = JSON.parse(previousSavedMovieNames);
   }
-  // this add movie name to array of saved movie-names
-  savedMovieNames.push(movieName);
-  localStorage.setItem("savedMovieName", JSON.stringify(savedMovieNames));
+ // this adds movie name to array of saved movie-names
+savedMovieNames.push(userInput);
+localStorage.setItem("savedMovieName", JSON.stringify(savedMovieNames));
+
+
+};
+
+// this function renders the search history entries onto search histoory container (the html div that is dedicated to hold the search history)
+
+function renderSearchHistory() {
+
+// getting the saved mivie names from local storage and putting them into a variable 
+  var savedSearchEntries = localStorage.getItem("savedMovieNames");
+  console.log(savedSearchEntries);
+
+if (!savedSearchEntries){
+  return false;
 }
+// this turns the saved search entries content into and array that we'd need to print its elemets in the html
+savedSearchEntries=JSON.parse("savedSearchEntries");
+
+// loops through saved movie names array and prints the search entries
+for (var i=0; i< savedSearchEntries.length; i++){
+  searchHistoryList(savedSearchEntries[i]);
+}
+};
+
+
 
 // resets search entry input
 $("#search-input").val("");
@@ -178,3 +203,4 @@ function appendActorGIF(actors) {
       });
   }
 }
+renderSearchHistory();
