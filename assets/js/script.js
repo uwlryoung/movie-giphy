@@ -34,9 +34,7 @@ var requestMovieUrl =
 var userInput = document.querySelector("#movieInput");
 var searchBtn = document.querySelector("#searchMovieBtn");
 
-
-
-// getMovieData fetches movie data and giphy images based on the user's input. Then it appends the movie info (summary and title) and giphy images. 
+// getMovieData fetches movie data and giphy images based on the user's input. Then it appends the movie info (summary and title) and giphy images.
 function getMovieData(event) {
   event.preventDefault();
 
@@ -74,22 +72,19 @@ function getMovieData(event) {
             );
           });
 
-        
         appendMovieInfo(data.Title, data.Plot);
         appendActorGIF(data.Actors);
         saveMovie(data.Title);
+        renderCurrentMovieButton(data.Title);
       }
-
     });
 
   userInput.value = "";
-  
-    // saveSearchHistory();
+
+  // saveSearchHistory();
 }
 
 searchBtn.addEventListener("click", getMovieData);
-
-
 
 //TODO: Fix the samesite issues with cookies
 
@@ -98,19 +93,31 @@ searchBtn.addEventListener("click", getMovieData);
 //saveMovie function saves the movie title and inputs into local storage
 function saveMovie(title) {
   var movies = JSON.parse(localStorage.getItem("movies"));
-
-  if (movies === null){
+  if (movies === null) {
     movies = [];
-  } else if (movies.indexOf(title) === -1){
     movies.push(title);
-  } else{
+  } else if (movies.indexOf(title) === -1) {
+    movies.push(title);
   }
   localStorage.setItem("movies", JSON.stringify(movies));
 }
 
+function renderPastMovieButton() {
+  let movieHistory = JSON.parse(localStorage.getItem("movies"));
+  movieHistory.forEach((element) => {
+    let movieHistoryBtn = document.createElement("button");
+    movieHistoryBtn.textContent = element;
+    searchHistoryEl.append(movieHistoryBtn);
+  });
+}
+
+function renderCurrentMovieButton(title) {
+  let movieBtn = document.createElement("button");
+  movieBtn.innerHTML = title;
+  searchHistoryEl.append(movieBtn);
+}
+
 //TODO: Function to render the search history buttons
-
-
 
 // resets search entry input
 $("#search-input").val("");
@@ -148,7 +155,7 @@ function appendGIF(gif1, gif2, gif3, gif4, gif5, gif6) {
   var giphy5 = document.createElement("iframe");
   giphy5.setAttribute("src", gif5);
   giphyImage2.appendChild(giphy5);
-  
+
   var giphy6 = document.createElement("iframe");
   giphy6.setAttribute("src", gif6);
   giphyImage2.appendChild(giphy6);
@@ -158,7 +165,6 @@ function appendActorGIF(actors) {
   actorArray = actors.split(", ");
 
   for (i = 0; i < actorArray.length; i++) {
-    
     fetch(requestGiphyUrl + actorArray[i])
       .then(function (response) {
         return response.json();
@@ -167,24 +173,11 @@ function appendActorGIF(actors) {
         var actor = document.createElement("iframe");
         actor.setAttribute("src", data.data[0].embed_url);
         actorImage.appendChild(actor);
-        
       });
   }
 }
-
-
-
-
-
-
-
-
-
-
-
+renderPastMovieButton();
 // renderSearchHistory();
-
-
 
 // function searchHistoryList() {
 //   // creates search entry with movie name
@@ -201,7 +194,7 @@ function appendActorGIF(actors) {
 //   entryStorageContainer.append(searchHistoryEntry);
 
 //   // append entry container to search history container
-  
+
 //   searchHistoryEl.append(entryStorageContainer);
 
 //   if (savedMovieNames.length > 0) {
@@ -218,9 +211,9 @@ function appendActorGIF(actors) {
 
 // function renderSearchHistory() {
 
-//   // // getting the saved mivie names from local storage and putting them into a variable 
+//   // // getting the saved mivie names from local storage and putting them into a variable
 //     var savedSearchEntries = JSON.parse(localStorage.getItem("savedMovieNames"));
-  
+
 //   if (!savedSearchEntries){
 //     return false;
 //   }
