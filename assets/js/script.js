@@ -10,7 +10,6 @@ var movieSummary = movieInfo.children[1];
 var clearHistory = document.getElementById("clear-history");
 var error = document.createElement("h2");
 var searchHistoryEl = $("#search-history-container");
-var savedMovieNames = [];
 
 // Issue with the cookies and an attribute called "SameSite"
 // document.cookie = "name=giphy; SameSite=None; Secure";
@@ -35,6 +34,9 @@ var requestMovieUrl =
 var userInput = document.querySelector("#movieInput");
 var searchBtn = document.querySelector("#searchMovieBtn");
 
+
+
+// getMovieData fetches movie data and giphy images based on the user's input. Then it appends the movie info (summary and title) and giphy images. 
 function getMovieData(event) {
   event.preventDefault();
 
@@ -51,6 +53,7 @@ function getMovieData(event) {
       return response.json();
     })
     .then(function (data) {
+      console.log(data);
       if (data.Response === "False") {
         error = "Movie Title Not Found! Please Enter a Valid Movie Title.";
         movieTitle.innerHTML = error;
@@ -74,6 +77,7 @@ function getMovieData(event) {
         
         appendMovieInfo(data.Title, data.Plot);
         appendActorGIF(data.Actors);
+        saveMovie(data.Title);
       }
 
     });
@@ -91,65 +95,22 @@ searchBtn.addEventListener("click", getMovieData);
 
 //TODO: Function to store the local data (just movie names) onto localStorage. This should call the "render buttons" at the end of the function
 
+//saveMovie function saves the movie title and inputs into local storage
+function saveMovie(title) {
+  var movies = JSON.parse(localStorage.getItem("movies"));
+
+  if (movies === null){
+    movies = [];
+  } else if (movies.indexOf(title) === -1){
+    movies.push(title);
+  } else{
+  }
+  localStorage.setItem("movies", JSON.stringify(movies));
+}
+
 //TODO: Function to render the search history buttons
-// this handles local storage 
-// function saveSearchHistory(userInput){
-//   // getting the saved mivie names from local storage and putting them into a variable 
-//     var savedSearchEntries = JSON.parse(localStorage.getItem("savedMovieNames"));
-  
-//   if (!savedSearchEntries){
-//     return false;
-//   }
-//   localStorage.setItem("savedMovieName", JSON.stringify(savedMovieNames));
-// };
 
 
-function searchHistoryList() {
-  // creates search entry with movie name
-  var searchHistoryEntry = $("<p>");
-  searchHistoryEntry.addClass("movie-list");
-  searchHistoryEntry= userInput.value
-  console.log(searchHistoryEntry);
-
-  // creates a container to hold search entry
-  var entryStorageContainer = $("<div>");
-  entryStorageContainer.addClass("previous-search-container");
-
-  // appends search entry to previous search container
-  entryStorageContainer.append(searchHistoryEntry);
-
-  // append entry container to search history container
-  
-  searchHistoryEl.append(entryStorageContainer);
-
-  if (savedMovieNames.length > 0) {
-    // update savedSearches array with previously saved searches
-    var previousSavedMovieNames = localStorage.getItem("savedMovieNames");
-    savedMovieNames = JSON.parse(previousSavedMovieNames);
-  }
-  // this adds movie name to array of saved movie-names
-  savedMovieNames.push(userInput);
-  localStorage.setItem("savedMovieNames", JSON.stringify(savedMovieNames));
-};
-
-// this function renders the search history entries onto search histoory container (the html div that is dedicated to hold the search history)
-
-function renderSearchHistory() {
-
-  // // getting the saved mivie names from local storage and putting them into a variable 
-    var savedSearchEntries = JSON.parse(localStorage.getItem("savedMovieNames"));
-  
-  if (!savedSearchEntries){
-    return false;
-  }
-  // this turns the saved search entries content into and array that we'd need to print its elemets in the html
-  savedSearchEntries=JSON.parse('savedSearchEntries');
-
-  // loops through saved movie names array and prints the search entries
-  for (var i=0; i< savedSearchEntries.length; i++){
-    searchHistoryList(savedSearchEntries[i]);
-  }
-};
 
 // resets search entry input
 $("#search-input").val("");
@@ -157,6 +118,7 @@ $("#search-input").val("");
 //TODO: Function to reset the search history
 //TODO: Function to reset the search history
 
+// Sets the movie Title and Summary on the page
 function appendMovieInfo(title, plot) {
   movieTitle.textContent = title;
   movieSummary.textContent = plot;
@@ -209,4 +171,64 @@ function appendActorGIF(actors) {
       });
   }
 }
-renderSearchHistory();
+
+
+
+
+
+
+
+
+
+
+
+// renderSearchHistory();
+
+
+
+// function searchHistoryList() {
+//   // creates search entry with movie name
+//   var searchHistoryEntry = $("<p>");
+//   searchHistoryEntry.addClass("movie-list");
+//   searchHistoryEntry= userInput.value
+//   console.log(searchHistoryEntry);
+
+//   // creates a container to hold search entry
+//   var entryStorageContainer = $("<div>");
+//   entryStorageContainer.addClass("previous-search-container");
+
+//   // appends search entry to previous search container
+//   entryStorageContainer.append(searchHistoryEntry);
+
+//   // append entry container to search history container
+  
+//   searchHistoryEl.append(entryStorageContainer);
+
+//   if (savedMovieNames.length > 0) {
+//     // update savedSearches array with previously saved searches
+//     var previousSavedMovieNames = localStorage.getItem("savedMovieNames");
+//     savedMovieNames = JSON.parse(previousSavedMovieNames);
+//   }
+//   // this adds movie name to array of saved movie-names
+//   savedMovieNames.push(userInput);
+//   localStorage.setItem("savedMovieNames", JSON.stringify(savedMovieNames));
+// };
+
+// // this function renders the search history entries onto search histoory container (the html div that is dedicated to hold the search history)
+
+// function renderSearchHistory() {
+
+//   // // getting the saved mivie names from local storage and putting them into a variable 
+//     var savedSearchEntries = JSON.parse(localStorage.getItem("savedMovieNames"));
+  
+//   if (!savedSearchEntries){
+//     return false;
+//   }
+//   // this turns the saved search entries content into and array that we'd need to print its elemets in the html
+//   savedSearchEntries=JSON.parse('savedSearchEntries');
+
+//   // loops through saved movie names array and prints the search entries
+//   for (var i=0; i< savedSearchEntries.length; i++){
+//     searchHistoryList(savedSearchEntries[i]);
+//   }
+// };
