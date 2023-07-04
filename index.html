@@ -14,41 +14,60 @@
     <header></header>
 
     <!-- This is the form for the search bar -->
-    <form>
-      <label id="movie" for="movieInput">Search for a movie</label>
-      <input
-        type="text"
-        name="movie"
-        id="movieInput"
-        placeholder="Enter a movie title"
-      />
-      <button id="searchMovieBtn">Search</button>
-    </form>
-
-    <!-- This div holds the content of the information (Title, Summary and Giphy) -->
-    <div id="movie-content">
-      <!-- this div holds the movie-info (The movie title and summary) -->
-      <div id="movie-info">
-        <h2></h2>
-        <p></p>
+    <div class="container">
+      <div class="notification is-primary">
+        <form id="formEl">
+          <label id="movie" for="movieInput">Search for a movie</label>
+          <input
+            class="input"
+            type="text"
+            name="movie"
+            id="movieInput"
+            placeholder="Enter a movie title"
+          />
+          
+            <button
+              class="button is-normal is-primary is-light"
+              id="searchMovieBtn"
+            >
+              Search
+          
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column is-one-third">
+        <!-- This div holds the content of the information (Title, Summary and Giphy) -->
+        <div id="movie-content">
+          <!-- this div holds the movie-info (The movie title and summary) -->
+          <div id="movie-info">
+            <h2></h2>
+            <p></p>
+          </div>
+          <div id="search-history">
+            <h2></h2>
+            <div>
+              <button class="button is-normal is-clear" id="clear-history">
+                Clear History
+              </button>
+            </div>
+            <div id="search-history-container"></div>
+          </div>
+        </div>
       </div>
 
       <!-- This div holds the giphy images (this might have to be a img element) 
         Probably still a good idea to have the image within it's own div-->
-      <div id="giphy-image"></div>
-      <div id="giphy-image2"></div>
-      <div id="actor-giphy"></div>
+      <div class="column">
+        <div id="giphy-image"></div>
+        <div id="giphy-image2"></div>
+        <div id="actor-giphy"></div>
+      </div>
+
+      <!-- This div has the search history. It includes a button to reset the local storage.-->
     </div>
 
-    <!-- This div has the search history. It includes a button to reset the local storage.-->
-    <div id="search-history">
-      <h2></h2>
-      <div>
-        <button id="clear-history">Clear History</button>
-      </div>
-      <div id=search-history-container></div>
-      
-    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <script src="./assets/js/script.js"></script>

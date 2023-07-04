@@ -105,6 +105,7 @@ function saveMovie(title) {
     movies.push(title);
     let movieBtn = document.createElement("button");
     movieBtn.setAttribute("id", title);
+    movieBtn.setAttribute("class", "button is-normal");
     movieBtn.innerHTML = title;
     searchHistoryEl.append(movieBtn);
   } else if (movies.indexOf(title) === -1) {
@@ -112,6 +113,7 @@ function saveMovie(title) {
     console.log(movies);
     let movieBtn = document.createElement("button");
     movieBtn.setAttribute("id", title);
+    movieBtn.setAttribute("class", "button is-normal");
     movieBtn.innerHTML = title;
     searchHistoryEl.append(movieBtn);
   }
@@ -127,6 +129,7 @@ function renderPastMovieButton() {
   movieHistory.forEach((element) => {
     let movieHistoryBtn = document.createElement("button");
     movieHistoryBtn.setAttribute("id", element);
+    movieHistoryBtn.setAttribute("class", "button is-normal");
     movieHistoryBtn.textContent = element;
     searchHistoryEl.append(movieHistoryBtn);
   });
