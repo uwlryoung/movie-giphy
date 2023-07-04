@@ -4,7 +4,7 @@ var movieInfo = document.getElementById("movie-info");
 var giphyImage = document.getElementById("giphy-image");
 var giphyImage2 = document.getElementById("giphy-image2");
 var actorImage = document.getElementById("actor-giphy");
-var searchHistory = document.getElementById("search-history");
+// var searchHistory = document.getElementById("search-history");
 var movieTitle = movieInfo.children[0];
 var movieSummary = movieInfo.children[1];
 var clearHistory = document.getElementById("clear-history");
@@ -34,17 +34,33 @@ var requestMovieUrl =
 var userInput = document.querySelector("#movieInput");
 var searchBtn = document.querySelector("#searchMovieBtn");
 
-// getMovieData fetches movie data and giphy images based on the user's input. Then it appends the movie info (summary and title) and giphy images.
-function getMovieData(event) {
+
+//Space for click functions/event listners
+
+searchBtn.addEventListener("click", function(event){
   event.preventDefault();
+  let searchInput = userInput.value;
+  getMovieData(searchInput);
+});
+
+$(searchHistoryEl).on("click", "button", function() {
+  var movie = $(this).attr("id");
+  getMovieData(movie);
+})
+
+$(clearHistory).on("click", function(){
+  localStorage.clear();
+  $(searchHistoryEl).remove();
+})
+
+// getMovieData fetches movie data and giphy images based on the user's input. Then it appends the movie info (summary and title) and giphy images.
+function getMovieData(searchInput) {
 
   giphyImage.replaceChildren();
   giphyImage2.replaceChildren();
   actorImage.replaceChildren();
   movieTitle.innerHTML = "";
   movieSummary.innerHTML = "";
-
-  let searchInput = userInput.value;
 
   fetch(requestMovieUrl + searchInput)
     .then(function (response) {
@@ -81,10 +97,6 @@ function getMovieData(event) {
   userInput.value = "";
 }
 
-searchBtn.addEventListener("click", getMovieData);
-
-//TODO: Function to reset the search history
-
 //TODO: Fix the samesite issues with cookies
 
 //saveMovie function saves the movie title and inputs into local storage
@@ -94,12 +106,14 @@ function saveMovie(title) {
     movies = [];
     movies.push(title);
     let movieBtn = document.createElement("button");
+    movieBtn.setAttribute("id", title);
     movieBtn.innerHTML = title;
     searchHistoryEl.append(movieBtn);
   } else if (movies.indexOf(title) === -1) {
     movies.push(title);
     console.log(movies);
     let movieBtn = document.createElement("button");
+    movieBtn.setAttribute("id", title);
     movieBtn.innerHTML = title;
     searchHistoryEl.append(movieBtn);
   }
@@ -114,6 +128,7 @@ function renderPastMovieButton() {
 
   movieHistory.forEach((element) => {
     let movieHistoryBtn = document.createElement("button");
+    movieHistoryBtn.setAttribute("id", element);
     movieHistoryBtn.textContent = element;
     searchHistoryEl.append(movieHistoryBtn);
   });
