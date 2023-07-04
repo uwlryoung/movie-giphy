@@ -75,20 +75,17 @@ function getMovieData(event) {
         appendMovieInfo(data.Title, data.Plot);
         appendActorGIF(data.Actors);
         saveMovie(data.Title);
-        renderCurrentMovieButton(data.Title);
       }
     });
 
   userInput.value = "";
-
-  // saveSearchHistory();
 }
 
 searchBtn.addEventListener("click", getMovieData);
 
-//TODO: Fix the samesite issues with cookies
+//TODO: Function to reset the search history
 
-//TODO: Function to store the local data (just movie names) onto localStorage. This should call the "render buttons" at the end of the function
+//TODO: Fix the samesite issues with cookies
 
 //saveMovie function saves the movie title and inputs into local storage
 function saveMovie(title) {
@@ -96,14 +93,25 @@ function saveMovie(title) {
   if (movies === null) {
     movies = [];
     movies.push(title);
+    let movieBtn = document.createElement("button");
+    movieBtn.innerHTML = title;
+    searchHistoryEl.append(movieBtn);
   } else if (movies.indexOf(title) === -1) {
     movies.push(title);
+    console.log(movies);
+    let movieBtn = document.createElement("button");
+    movieBtn.innerHTML = title;
+    searchHistoryEl.append(movieBtn);
   }
   localStorage.setItem("movies", JSON.stringify(movies));
 }
 
 function renderPastMovieButton() {
   let movieHistory = JSON.parse(localStorage.getItem("movies"));
+  if (movieHistory === null) {
+    return;
+  }
+
   movieHistory.forEach((element) => {
     let movieHistoryBtn = document.createElement("button");
     movieHistoryBtn.textContent = element;
@@ -111,19 +119,8 @@ function renderPastMovieButton() {
   });
 }
 
-function renderCurrentMovieButton(title) {
-  let movieBtn = document.createElement("button");
-  movieBtn.innerHTML = title;
-  searchHistoryEl.append(movieBtn);
-}
-
-//TODO: Function to render the search history buttons
-
 // resets search entry input
 $("#search-input").val("");
-
-//TODO: Function to reset the search history
-//TODO: Function to reset the search history
 
 // Sets the movie Title and Summary on the page
 function appendMovieInfo(title, plot) {
@@ -177,51 +174,3 @@ function appendActorGIF(actors) {
   }
 }
 renderPastMovieButton();
-// renderSearchHistory();
-
-// function searchHistoryList() {
-//   // creates search entry with movie name
-//   var searchHistoryEntry = $("<p>");
-//   searchHistoryEntry.addClass("movie-list");
-//   searchHistoryEntry= userInput.value
-//   console.log(searchHistoryEntry);
-
-//   // creates a container to hold search entry
-//   var entryStorageContainer = $("<div>");
-//   entryStorageContainer.addClass("previous-search-container");
-
-//   // appends search entry to previous search container
-//   entryStorageContainer.append(searchHistoryEntry);
-
-//   // append entry container to search history container
-
-//   searchHistoryEl.append(entryStorageContainer);
-
-//   if (savedMovieNames.length > 0) {
-//     // update savedSearches array with previously saved searches
-//     var previousSavedMovieNames = localStorage.getItem("savedMovieNames");
-//     savedMovieNames = JSON.parse(previousSavedMovieNames);
-//   }
-//   // this adds movie name to array of saved movie-names
-//   savedMovieNames.push(userInput);
-//   localStorage.setItem("savedMovieNames", JSON.stringify(savedMovieNames));
-// };
-
-// // this function renders the search history entries onto search histoory container (the html div that is dedicated to hold the search history)
-
-// function renderSearchHistory() {
-
-//   // // getting the saved mivie names from local storage and putting them into a variable
-//     var savedSearchEntries = JSON.parse(localStorage.getItem("savedMovieNames"));
-
-//   if (!savedSearchEntries){
-//     return false;
-//   }
-//   // this turns the saved search entries content into and array that we'd need to print its elemets in the html
-//   savedSearchEntries=JSON.parse('savedSearchEntries');
-
-//   // loops through saved movie names array and prints the search entries
-//   for (var i=0; i< savedSearchEntries.length; i++){
-//     searchHistoryList(savedSearchEntries[i]);
-//   }
-// };
