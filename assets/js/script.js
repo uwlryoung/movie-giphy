@@ -34,28 +34,26 @@ var requestMovieUrl =
 var userInput = document.querySelector("#movieInput");
 var searchBtn = document.querySelector("#searchMovieBtn");
 
-
 //Space for click functions/event listners
 
-searchBtn.addEventListener("click", function(event){
+searchBtn.addEventListener("click", function (event) {
   event.preventDefault();
   let searchInput = userInput.value;
   getMovieData(searchInput);
 });
 
-$(searchHistoryEl).on("click", "button", function() {
+$(searchHistoryEl).on("click", "button", function () {
   var movie = $(this).attr("id");
   getMovieData(movie);
-})
+});
 
-$(clearHistory).on("click", function(){
+$(clearHistory).on("click", function () {
   localStorage.clear();
-  $(searchHistoryEl).remove();
-})
+  $(searchHistoryEl).empty();
+});
 
 // getMovieData fetches movie data and giphy images based on the user's input. Then it appends the movie info (summary and title) and giphy images.
 function getMovieData(searchInput) {
-
   giphyImage.replaceChildren();
   giphyImage2.replaceChildren();
   actorImage.replaceChildren();
