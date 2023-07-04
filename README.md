@@ -12,6 +12,9 @@ A web app that displays a movie's summary and related gifs.
 ## Usage
 
 ## Credits / Used Sources
+Dev Team 
+- 
+
 [Bulma](https://bulma.io/)
 
 APIs 
