@@ -18,9 +18,10 @@ html {
 }
 
 #movieInput {
-  width: 15%;
+  width: 30%;
   margin: 10px;
 }
+
 #searchMovieBtn {
   margin: 10px;
   color: var(--lightteal);
@@ -33,38 +34,37 @@ html {
 }
 
 #movie-content {
+  text-align: center;
   color: #dafffb;
+  margin-top: 60px;
 }
+
 h2 {
   margin-top: 60px;
-  margin-left: 100px;
   font-size: 40px;
+  color: #dafffb;
 }
+
 p {
   margin: 40px 50px 80px 70px;
-
   font-size: 25px;
 }
+
 iframe {
   margin: 10px;
 }
-#giphy-image {
-  margin-top: 140px;
-}
+
 #search-history-container {
   margin-left: 30px;
-  position: absolute;
-  bottom: 80px;
 }
+
 #clear-history {
-  bottom: 120px;
-  position: absolute;
-  margin-left: 35px;
-  margin-bottom: 20px;
   background-color: var(--red);
   border-style: none;
   color: var(--darkblue);
 }
+
 .button.is-normal {
   margin: 5px;
 }
+
