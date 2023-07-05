@@ -4,38 +4,19 @@ var movieInfo = document.getElementById("movie-info");
 var giphyImage = document.getElementById("giphy-image");
 var giphyImage2 = document.getElementById("giphy-image2");
 var actorImage = document.getElementById("actor-giphy");
-// var searchHistory = document.getElementById("search-history");
 var movieTitle = movieInfo.children[0];
 var movieSummary = movieInfo.children[1];
 var clearHistory = document.getElementById("clear-history");
 var error = document.createElement("h2");
 var searchHistoryEl = document.getElementById("search-history-container");
-
-// Issue with the cookies and an attribute called "SameSite"
-// document.cookie = "name=giphy; SameSite=None; Secure";
-
-/* We should actually make one more div in the html here as a parent to the search history buttons
-We should call that in the index.html file: 
-<div id="history-container"></div>
-
-Then the variable to select it will be: 
-
-var historyContainer = document.getElementById("history-container");
-*/
-
 var giphyAPIKey = "ggIqSnV3EyhXc41xShTfcOFcFk9uJlqx";
 var omdbAPIKey = "347dfc0d";
-
-var requestGiphyUrl =
-  "https://api.giphy.com/v1/gifs/search?api_key=" + giphyAPIKey + "&q=";
-var requestMovieUrl =
-  "https://www.omdbapi.com/?plot=full&apikey=" + omdbAPIKey + "&t=";
-
+var requestGiphyUrl ="https://api.giphy.com/v1/gifs/search?api_key=" + giphyAPIKey + "&q=";
+var requestMovieUrl ="https://www.omdbapi.com/?plot=full&apikey=" + omdbAPIKey + "&t=";
 var userInput = document.querySelector("#movieInput");
 var searchBtn = document.querySelector("#searchMovieBtn");
 
 //Space for click functions/event listners
-
 searchBtn.addEventListener("click", function (event) {
   event.preventDefault();
   let searchInput = userInput.value;
@@ -95,28 +76,16 @@ function getMovieData(searchInput) {
   userInput.value = "";
 }
 
-//TODO: Fix the samesite issues with cookies
-
 //saveMovie function saves the movie title and inputs into local storage
 function saveMovie(title) {
   var movies = JSON.parse(localStorage.getItem("movies"));
   if (movies === null) {
     movies = [];
     movies.push(title);
-    // let movieBtn = document.createElement("button");
-    // movieBtn.setAttribute("id", title);
-    // movieBtn.setAttribute("class", "button is-normal");
-    // movieBtn.innerHTML = title;
-    // searchHistoryEl.append(movieBtn);
+    
   } else if (movies.indexOf(title) === -1) {
     movies.push(title);
-    console.log(movie);
-   
-    // let movieBtn = document.createElement("button");
-    // movieBtn.setAttribute("id", title);
-    // movieBtn.setAttribute("class", "button is-normal");
-    // movieBtn.innerHTML = title;
-    // searchHistoryEl.append(movieBtn);
+    
   }
   localStorage.setItem("movies", JSON.stringify(movies));
   renderPastMovieButton();
@@ -152,9 +121,6 @@ function appendMovieInfo(title, plot) {
 function appendGIF(gif1, gif2, gif3, gif4, gif5, gif6) {
   var giphy1 = document.createElement("iframe");
   giphy1.setAttribute("src", gif1);
-  //TODO: Fix the samesite cookie issue. Possible solutions:
-  // giphy1.setAttribute("id", "cookie");
-  // giphy1.setAttribute("set-cookie", "none secure")
   giphyImage.appendChild(giphy1);
 
   var giphy2 = document.createElement("iframe");
