@@ -146,7 +146,7 @@ function appendMovieInfo(title, plot) {
 
 function appendGIF(gif1, gif2, gif3, gif4, gif5, gif6) {
   var movieGifs = document.createElement("h2");
-  movieGifs.textContent = "Movie Gifs"
+  movieGifs.textContent = "Movie Gifs";
   giphyImage.appendChild(movieGifs);
 
   var giphy1 = document.createElement("iframe");
@@ -179,11 +179,13 @@ function appendGIF(gif1, gif2, gif3, gif4, gif5, gif6) {
 
 function appendActorGIF(actors) {
   actorArray = actors.split(", ");
-
   var actorGifs = document.createElement("h2");
-  actorGifs.textContent = "Actor Gifs"
+  actorGifs.textContent = "Actor Gifs";
   actorImage.appendChild(actorGifs);
-
+  var actorName = document.createElement("p");
+  actorName.setAttribute("id", "actor-names");
+  actorName.textContent = "Searched Actors: " + actors;
+  actorImage.appendChild(actorName);
   for (i = 0; i < actorArray.length; i++) {
     fetch(requestGiphyUrl + actorArray[i])
       .then(function (response) {
