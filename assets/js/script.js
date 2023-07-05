@@ -65,7 +65,6 @@ function getMovieData(searchInput) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
       if (data.Response === "False") {
         error = "Movie Title Not Found! Please Enter a Valid Movie Title.";
         movieTitle.innerHTML = error;
@@ -146,6 +145,10 @@ function appendMovieInfo(title, plot) {
 }
 
 function appendGIF(gif1, gif2, gif3, gif4, gif5, gif6) {
+  var movieGifs = document.createElement("h2");
+  movieGifs.textContent = "Movie Gifs"
+  giphyImage.appendChild(movieGifs);
+
   var giphy1 = document.createElement("iframe");
   giphy1.setAttribute("src", gif1);
   //TODO: Fix the samesite cookie issue. Possible solutions:
@@ -176,6 +179,10 @@ function appendGIF(gif1, gif2, gif3, gif4, gif5, gif6) {
 
 function appendActorGIF(actors) {
   actorArray = actors.split(", ");
+
+  var actorGifs = document.createElement("h2");
+  actorGifs.textContent = "Actor Gifs"
+  actorImage.appendChild(actorGifs);
 
   for (i = 0; i < actorArray.length; i++) {
     fetch(requestGiphyUrl + actorArray[i])
