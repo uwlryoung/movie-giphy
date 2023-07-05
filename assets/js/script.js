@@ -9,7 +9,7 @@ var movieTitle = movieInfo.children[0];
 var movieSummary = movieInfo.children[1];
 var clearHistory = document.getElementById("clear-history");
 var error = document.createElement("h2");
-var searchHistoryEl = $("#search-history-container");
+var searchHistoryEl = document.getElementById("search-history-container");
 
 // Issue with the cookies and an attribute called "SameSite"
 // document.cookie = "name=giphy; SameSite=None; Secure";
@@ -102,21 +102,23 @@ function saveMovie(title) {
   if (movies === null) {
     movies = [];
     movies.push(title);
-    let movieBtn = document.createElement("button");
-    movieBtn.setAttribute("id", title);
-    movieBtn.setAttribute("class", "button is-normal");
-    movieBtn.innerHTML = title;
-    searchHistoryEl.append(movieBtn);
+    // let movieBtn = document.createElement("button");
+    // movieBtn.setAttribute("id", title);
+    // movieBtn.setAttribute("class", "button is-normal");
+    // movieBtn.innerHTML = title;
+    // searchHistoryEl.append(movieBtn);
   } else if (movies.indexOf(title) === -1) {
     movies.push(title);
-    console.log(movies);
-    let movieBtn = document.createElement("button");
-    movieBtn.setAttribute("id", title);
-    movieBtn.setAttribute("class", "button is-normal");
-    movieBtn.innerHTML = title;
-    searchHistoryEl.append(movieBtn);
+    console.log(movie);
+   
+    // let movieBtn = document.createElement("button");
+    // movieBtn.setAttribute("id", title);
+    // movieBtn.setAttribute("class", "button is-normal");
+    // movieBtn.innerHTML = title;
+    // searchHistoryEl.append(movieBtn);
   }
   localStorage.setItem("movies", JSON.stringify(movies));
+  renderPastMovieButton();
 }
 
 function renderPastMovieButton() {
@@ -124,6 +126,7 @@ function renderPastMovieButton() {
   if (movieHistory === null) {
     return;
   }
+  searchHistoryEl.innerHTML="";
 
   movieHistory.forEach((element) => {
     let movieHistoryBtn = document.createElement("button");
@@ -131,6 +134,7 @@ function renderPastMovieButton() {
     movieHistoryBtn.setAttribute("class", "button is-normal");
     movieHistoryBtn.textContent = element;
     searchHistoryEl.append(movieHistoryBtn);
+    console.log(searchHistoryEl);
   });
 }
 
