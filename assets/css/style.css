@@ -1,0 +1,70 @@
+* {
+  --darkblue: #001c30;
+  --blue: #176b87;
+  --teal: #64ccc5;
+  --lightteal: #b1fff7;
+  --red: #ff8b8b;
+}
+
+html {
+  background-color: var(--darkblue);
+  min-height: 100%;
+}
+
+#formEl {
+  font-size: 35px;
+  margin: 20px;
+  color: var(--darkblue);
+}
+
+#movieInput {
+  width: 15%;
+  margin: 10px;
+}
+#searchMovieBtn {
+  margin: 10px;
+  color: var(--lightteal);
+  background-color: var(--blue);
+}
+
+.input::placeholder {
+  opacity: 0.7;
+  color: black;
+}
+
+#movie-content {
+  color: #dafffb;
+}
+h2 {
+  margin-top: 60px;
+  margin-left: 100px;
+  font-size: 40px;
+}
+p {
+  margin: 40px 50px 80px 70px;
+
+  font-size: 25px;
+}
+iframe {
+  margin: 10px;
+}
+#giphy-image {
+  margin-top: 140px;
+}
+#search-history-container {
+  margin-left: 30px;
+  position: absolute;
+  bottom: 80px;
+}
+#clear-history {
+  bottom: 120px;
+  position: absolute;
+  margin-left: 35px;
+  margin-bottom: 20px;
+  background-color: var(--red);
+  border-style: none;
+  color: var(--darkblue);
+}
+.button.is-normal {
+  margin: 5px;
+}
