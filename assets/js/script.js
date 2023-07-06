@@ -12,10 +12,8 @@ var error = document.createElement("h2");
 var searchHistoryEl = document.getElementById("search-history-container");
 var giphyAPIKey = "ggIqSnV3EyhXc41xShTfcOFcFk9uJlqx";
 var omdbAPIKey = "347dfc0d";
-var requestGiphyUrl =
-  "https://api.giphy.com/v1/gifs/search?api_key=" + giphyAPIKey + "&q=";
-var requestMovieUrl =
-  "https://www.omdbapi.com/?plot=full&apikey=" + omdbAPIKey + "&t=";
+var requestGiphyUrl ="https://api.giphy.com/v1/gifs/search?api_key=" + giphyAPIKey + "&q=";
+var requestMovieUrl ="https://www.omdbapi.com/?plot=full&apikey=" + omdbAPIKey + "&t=";
 var userInput = document.querySelector("#movieInput");
 var searchBtn = document.querySelector("#searchMovieBtn");
 
@@ -35,7 +33,7 @@ $(clearHistory).on("click", function () {
   localStorage.clear();
   $(searchHistoryEl).empty();
 });
-// getMovieData fetches movie data and giphy images based on the user's input. Then it appends the movie info (summary and title) and giphy images.
+// getMovieData fetches movie data and giphy images based on the user's input. Then it appends the movie info .
 function getMovieData(searchInput) {
   giphyImage.replaceChildren();
   giphyImage2.replaceChildren();
@@ -75,7 +73,6 @@ function getMovieData(searchInput) {
         saveMovie(data.Title);
       }
     });
-
   userInput.value = "";
 }
 
@@ -112,7 +109,6 @@ function appendMovieInfo(title, plot, year) {
   movieTitle.innerHTML = title;
   movieSummary.textContent = plot;
   movieYear.textContent = "Year Released: " + year;
-  //TODO: Add the year of the movie to the title page - needs a new HTML element to be put in the html
 }
 // diplays the movie name gifs
 function appendGIF(gif1, gif2, gif3, gif4, gif5, gif6) {
