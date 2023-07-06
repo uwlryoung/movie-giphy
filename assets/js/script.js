@@ -1,18 +1,20 @@
-//TODO: add variables needed (api-key, selectors for each section). We should either use all jquery or all vanilla javascript (I think maybe vanilla is best for our project)
 var search = document.querySelector("form");
 var movieInfo = document.getElementById("movie-info");
 var giphyImage = document.getElementById("giphy-image");
 var giphyImage2 = document.getElementById("giphy-image2");
 var actorImage = document.getElementById("actor-giphy");
 var movieTitle = movieInfo.children[0];
-var movieSummary = movieInfo.children[1];
+var movieYear = movieInfo.children[1];
+var movieSummary = movieInfo.children[2];
 var clearHistory = document.getElementById("clear-history");
 var error = document.createElement("h2");
 var searchHistoryEl = document.getElementById("search-history-container");
 var giphyAPIKey = "ggIqSnV3EyhXc41xShTfcOFcFk9uJlqx";
 var omdbAPIKey = "347dfc0d";
-var requestGiphyUrl ="https://api.giphy.com/v1/gifs/search?api_key=" + giphyAPIKey + "&q=";
-var requestMovieUrl ="https://www.omdbapi.com/?plot=full&apikey=" + omdbAPIKey + "&t=";
+var requestGiphyUrl =
+  "https://api.giphy.com/v1/gifs/search?api_key=" + giphyAPIKey + "&q=";
+var requestMovieUrl =
+  "https://www.omdbapi.com/?plot=full&apikey=" + omdbAPIKey + "&t=";
 var userInput = document.querySelector("#movieInput");
 var searchBtn = document.querySelector("#searchMovieBtn");
 
@@ -40,12 +42,14 @@ function getMovieData(searchInput) {
   actorImage.replaceChildren();
   movieTitle.innerHTML = "";
   movieSummary.innerHTML = "";
+  movieYear.innerHTML = "";
 
   fetch(requestMovieUrl + searchInput)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
+      console.log(data);
       if (data.Response === "False") {
         error = "Movie Title Not Found! Please Enter a Valid Movie Title.";
         movieTitle.innerHTML = error;
@@ -66,7 +70,7 @@ function getMovieData(searchInput) {
             );
           });
 
-        appendMovieInfo(data.Title, data.Plot);
+        appendMovieInfo(data.Title, data.Plot, data.Year);
         appendActorGIF(data.Actors);
         saveMovie(data.Title);
       }
@@ -81,10 +85,8 @@ function saveMovie(title) {
   if (movies === null) {
     movies = [];
     movies.push(title);
-    
   } else if (movies.indexOf(title) === -1) {
     movies.push(title);
-    
   }
   localStorage.setItem("movies", JSON.stringify(movies));
   renderPastMovieButton();
@@ -95,7 +97,7 @@ function renderPastMovieButton() {
   if (movieHistory === null) {
     return;
   }
-  searchHistoryEl.innerHTML="";
+  searchHistoryEl.innerHTML = "";
 
   movieHistory.forEach((element) => {
     let movieHistoryBtn = document.createElement("button");
@@ -103,7 +105,6 @@ function renderPastMovieButton() {
     movieHistoryBtn.setAttribute("class", "button is-normal");
     movieHistoryBtn.textContent = element;
     searchHistoryEl.append(movieHistoryBtn);
-    console.log(searchHistoryEl);
   });
 }
 
@@ -111,9 +112,10 @@ function renderPastMovieButton() {
 $("#search-input").val("");
 
 // Sets the movie Title and Summary on the page
-function appendMovieInfo(title, plot) {
-  movieTitle.textContent = title;
+function appendMovieInfo(title, plot, year) {
+  movieTitle.innerHTML = title;
   movieSummary.textContent = plot;
+  movieYear.textContent = "Year Released: " + year;
   //TODO: Add the year of the movie to the title page - needs a new HTML element to be put in the html
 }
 

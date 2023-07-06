@@ -17,18 +17,22 @@
     <div class="container">
       <div class="notification is-primary">
         <form id="formEl">
-          <label id="movie" for="movieInput">Search for a movie
+          <label id="movie" for="movieInput"
+            >Search for a movie
             <input
               class="input"
               type="text"
               name="movie"
               id="movieInput"
-              placeholder="Enter a movie title"/>
+              placeholder="Enter a movie title"
+            />
           </label>
-          
+
           <button
             class="button is-normal is-primary is-light"
-            id="searchMovieBtn">Search
+            id="searchMovieBtn"
+          >
+            Search
           </button>
         </form>
         <!-- This div has the search history. It includes a button to reset the local storage.-->
@@ -36,12 +40,10 @@
           <button class="button is-normal is-clear" id="clear-history">
             Clear History
           </button>
-          <div id="search-history-container">
-          </div>
+          <div id="search-history-container"></div>
         </div>
       </div>
     </div>
-      
 
     <div class="columns">
       <div class="column is-two-fifths">
@@ -50,6 +52,7 @@
           <!-- this div holds the movie-info (The movie title and summary) -->
           <div id="movie-info">
             <h2></h2>
+            <h3></h3>
             <p></p>
           </div>
         </div>
