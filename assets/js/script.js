@@ -1,4 +1,4 @@
-//TODO: add variables needed (api-key, selectors for each section). We should either use all jquery or all vanilla javascript (I think maybe vanilla is best for our project)
+// all the global variables
 var search = document.querySelector("form");
 var movieInfo = document.getElementById("movie-info");
 var giphyImage = document.getElementById("giphy-image");
@@ -16,7 +16,7 @@ var requestMovieUrl ="https://www.omdbapi.com/?plot=full&apikey=" + omdbAPIKey +
 var userInput = document.querySelector("#movieInput");
 var searchBtn = document.querySelector("#searchMovieBtn");
 
-//Space for click functions/event listners
+//event listners
 searchBtn.addEventListener("click", function (event) {
   event.preventDefault();
   let searchInput = userInput.value;
@@ -32,7 +32,6 @@ $(clearHistory).on("click", function () {
   localStorage.clear();
   $(searchHistoryEl).empty();
 });
-
 // getMovieData fetches movie data and giphy images based on the user's input. Then it appends the movie info (summary and title) and giphy images.
 function getMovieData(searchInput) {
   giphyImage.replaceChildren();
@@ -75,7 +74,7 @@ function getMovieData(searchInput) {
   userInput.value = "";
 }
 
-//saveMovie function saves the movie title and inputs into local storage
+//saveMovie function saves the movie title and inputs it into local storage
 function saveMovie(title) {
   var movies = JSON.parse(localStorage.getItem("movies"));
   if (movies === null) {
@@ -89,14 +88,13 @@ function saveMovie(title) {
   localStorage.setItem("movies", JSON.stringify(movies));
   renderPastMovieButton();
 }
-
+// displays the searched movies buttons
 function renderPastMovieButton() {
   let movieHistory = JSON.parse(localStorage.getItem("movies"));
   if (movieHistory === null) {
     return;
   }
   searchHistoryEl.innerHTML="";
-
   movieHistory.forEach((element) => {
     let movieHistoryBtn = document.createElement("button");
     movieHistoryBtn.setAttribute("id", element);
@@ -106,17 +104,12 @@ function renderPastMovieButton() {
     console.log(searchHistoryEl);
   });
 }
-
-// resets search entry input
-$("#search-input").val("");
-
 // Sets the movie Title and Summary on the page
 function appendMovieInfo(title, plot) {
   movieTitle.textContent = title;
   movieSummary.textContent = plot;
-  //TODO: Add the year of the movie to the title page - needs a new HTML element to be put in the html
 }
-
+// diplays the movie name gifs
 function appendGIF(gif1, gif2, gif3, gif4, gif5, gif6) {
   var movieGifs = document.createElement("h2");
   movieGifs.textContent = "Movie Gifs";
@@ -146,7 +139,7 @@ function appendGIF(gif1, gif2, gif3, gif4, gif5, gif6) {
   giphy6.setAttribute("src", gif6);
   giphyImage2.appendChild(giphy6);
 }
-
+// displays the movie actors gifs
 function appendActorGIF(actors) {
   actorArray = actors.split(", ");
   var actorGifs = document.createElement("h2");
