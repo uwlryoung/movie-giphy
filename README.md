@@ -1,48 +1,35 @@
 # Movie-Giphy
 
-## Description
-A web app that displays a movie's summary and related gifs. 
+![alt text](./assets/images/README-screenshot.png) Looks like this 
 
-[Movie-Giphy](https://uwlryoung.github.io/movie-giphy/)
+## Purpose 
 
-## Screenshots
+Movie-Giphy is a web application that takes in a movie name as the user input and displays the movie's summary and related gifs. The gifs are categorized by movie name related gifs, and actors names related gifs. The user is initially prompted to enter a valid movie; the application will then use that movie's name to request and fetch information from two diffferent APIs (Open Movie Database, Giphy). The summary is retreived from the OMD and both gifs categories are retreived from Giphy 
 
-## Steps
 
-## Usage
+### Installation 
 
-## Credits / Used Sources
-Dev Team 
-- 
+Please launch the web application on your default browser
 
-[Bulma](https://bulma.io/)
+#### Built with 
 
-APIs 
-- [Giphy](https://developers.giphy.com/)
-- [OMBD](https://www.omdbapi.com/) (Open Movie Database)
+* HTML
+* CSS
+* JS
+* jQuery
+* Bulma
+* APIs:
+ ~ Open Movie Database
+ ~ Giphy 
+#####  Deployment 
 
-## Challenges To Work On / Future Updates to this Page
+https://uwlryoung.github.io/movie-giphy/
 
-## License
-MIT License
+######   Contribution
 
-Copyright (c) 2023 Lucas Young and Co.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.# movie-giphy
+Made by:     
+* Edward Chang
+* Youssef Karoui
+* Lucas Young
+* Corey Obiri
 
